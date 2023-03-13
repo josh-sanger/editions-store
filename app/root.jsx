@@ -6,11 +6,18 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react';
+
+import {Seo} from '@shopify/hydrogen';
+
+import {Layout} from './components/Layout';
 import styles from './styles/app.css';
+import tailwind from './styles/tailwind-build.css';
+
 import favicon from '../public/favicon.svg';
 
 export const links = () => {
   return [
+    {rel: 'stylesheet', href: tailwind},
     {rel: 'stylesheet', href: styles},
     {
       rel: 'preconnect',
@@ -42,13 +49,14 @@ export default function App() {
   return (
     <html lang="en">
       <head>
+        <Seo />
         <Meta />
         <Links />
       </head>
       <body>
-        <h1>Hello, {name}</h1>
-        <p>This is a custom storefront powered by Hydrogen</p>
-        <Outlet />
+        <Layout title={name}>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
       </body>
